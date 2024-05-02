@@ -1,6 +1,8 @@
 module org.example.agarioclone {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.datatransfer;
+    requires java.desktop;
 
     requires org.kordamp.ikonli.javafx;
     requires com.almasb.fxgl.all;
