@@ -4,21 +4,28 @@ import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import  java.awt.*;
 
+import com.almasb.fxgl.core.View;
 import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.components.BoundingBoxComponent;
 import com.almasb.fxgl.entity.components.CollidableComponent;
+import com.almasb.fxgl.entity.components.ViewComponent;
 import com.almasb.fxgl.input.Input;
+import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.BoundingBox;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class AgarioApp extends GameApplication {
 
@@ -27,6 +34,8 @@ public class AgarioApp extends GameApplication {
     final static public int WINDOW_HEIGHT = 2000;
     static public float MAX_PLAYER_SPEED = 50;
     Input input;
+    ArrayList<Entity> food;
+    static int frameCount = 0;
 
     public static void main(String[] args) {
         launch(args);
@@ -55,6 +64,7 @@ public class AgarioApp extends GameApplication {
                 .viewWithBBox(new Circle(50, Utility.getRandomColor()))
                 .with(new CollidableComponent(true))
                 .buildAndAttach();
+        food = new ArrayList<>();
     }
 
     @Override
@@ -63,11 +73,33 @@ public class AgarioApp extends GameApplication {
         input = FXGL.getInput();
 
     }
+    @Override
+    protected void initPhysics() {
+        FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.PLAYER, EntityType.FOOD) {
+            @Override
+            protected void onCollisionBegin(Entity player, Entity food) {
+                food.removeFromWorld();
+                player.removeComponent(ViewComponent.class);
+                player.addComponent(new BoundingBox(new Circle())));
+
+            }
+        });
+    }
+    void spawnFood(int n) {
+        for (int i = 0; i < n; ++i) {
+            food.add(FXGL.entityBuilder()
+                    .type(EntityType.FOOD)
+                    .at(Utility.getRandomPosition())
+                    .viewWithBBox(new Circle(10, Utility.getRandomColor()))
+                    .with(new CollidableComponent(true))
+                    .buildAndAttach()
+            );
+        }
+    }
 
     @Override
     protected void onUpdate(double tpf) {
         super.onUpdate(tpf);
-
         Point2D mouse = input.getMousePositionWorld();
         Point2D playerPosition = player.getPosition();
         Vec2 motion = new Vec2(playerPosition.subtract(mouse));
@@ -76,5 +108,10 @@ public class AgarioApp extends GameApplication {
             player.translateTowards(mouse, speed * tpf * 5);
         }
 
+        if (frameCount == 0) {
+            spawnFood(5);
+        }
+        frameCount++;
+        frameCount %= 60;
     }
 }
