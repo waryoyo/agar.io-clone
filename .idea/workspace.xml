@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9252a3ee-b152-4845-9c46-b13fb94cb589" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/EntityType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/Player.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Cannon/src/main/java/com/almasb/fxglgames/cannon/CannonApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Cannon/src/main/java/com/almasb/fxglgames/cannon/CannonApp.java" afterDir="false" />
     </list>
@@ -12,6 +16,14 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
