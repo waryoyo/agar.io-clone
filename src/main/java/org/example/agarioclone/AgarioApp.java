@@ -12,7 +12,9 @@ import com.almasb.fxgl.entity.components.BoundingBoxComponent;
 import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.entity.components.ViewComponent;
 import com.almasb.fxgl.input.Input;
+import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.CollisionHandler;
+import com.almasb.fxgl.physics.HitBox;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.BoundingBox;
@@ -44,6 +46,7 @@ public class AgarioApp extends GameApplication {
     @Override
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setFullScreenAllowed(true);
+        gameSettings.setDeveloperMenuEnabled(true);
         // gameSettings.setFullScreenFromStart(true);
 
         // TODO: make it full screen dynamically
@@ -61,8 +64,8 @@ public class AgarioApp extends GameApplication {
         player = FXGL.entityBuilder()
                 .type(EntityType.PLAYER)
                 .at(300, 1000)
-                .viewWithBBox(new Circle(50, Utility.getRandomColor()))
-                .with(new CollidableComponent(true))
+                .viewWithBBox(new Circle(50,50,50, Utility.getRandomColor()))
+                .collidable()
                 .buildAndAttach();
         food = new ArrayList<>();
     }
@@ -77,10 +80,20 @@ public class AgarioApp extends GameApplication {
     protected void initPhysics() {
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.PLAYER, EntityType.FOOD) {
             @Override
-            protected void onCollisionBegin(Entity player, Entity food) {
+            protected void onCollision(Entity player, Entity food) {
+
+
                 food.removeFromWorld();
-                player.removeComponent(ViewComponent.class);
-                player.addComponent(new BoundingBox(new Circle())));
+
+                Circle oldCircle = player.getViewComponent().getChild(0, Circle.class);
+                int newRadius = (int) (oldCircle.getRadius() + 1);
+
+                player.getViewComponent().clearChildren();
+                player.getViewComponent().addChild(new Circle(newRadius, newRadius, newRadius, oldCircle.getFill()));
+
+                player.getBoundingBoxComponent().clearHitBoxes();
+                player.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.circle(newRadius)));
+
 
             }
         });
@@ -90,8 +103,9 @@ public class AgarioApp extends GameApplication {
             food.add(FXGL.entityBuilder()
                     .type(EntityType.FOOD)
                     .at(Utility.getRandomPosition())
-                    .viewWithBBox(new Circle(10, Utility.getRandomColor()))
-                    .with(new CollidableComponent(true))
+                    .view(new Circle(10, 10,10, Utility.getRandomColor()))
+                    .bbox(new HitBox(BoundingShape.circle(10)))
+                    .collidable()
                     .buildAndAttach()
             );
         }
@@ -107,6 +121,7 @@ public class AgarioApp extends GameApplication {
             float speed = Math.min(motion.getLengthAndNormalize() * 100, MAX_PLAYER_SPEED);
             player.translateTowards(mouse, speed * tpf * 5);
         }
+
 
         if (frameCount == 0) {
             spawnFood(5);
