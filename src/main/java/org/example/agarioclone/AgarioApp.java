@@ -82,7 +82,6 @@ public class AgarioApp extends GameApplication {
             @Override
             protected void onCollision(Entity player, Entity food) {
 
-
                 food.removeFromWorld();
 
                 Circle oldCircle = player.getViewComponent().getChild(0, Circle.class);
@@ -114,11 +113,12 @@ public class AgarioApp extends GameApplication {
     @Override
     protected void onUpdate(double tpf) {
         super.onUpdate(tpf);
-        Point2D mouse = input.getMousePositionWorld();
-        Point2D playerPosition = player.getPosition();
+        Circle oldCircle = player.getViewComponent().getChild(0, Circle.class);
+        Point2D mouse = input.getMousePositionWorld().subtract(oldCircle.getRadius(), oldCircle.getRadius());
+        Point2D playerPosition = new Point2D(player.getX(), player.getY());
         Vec2 motion = new Vec2(playerPosition.subtract(mouse));
-        if (motion.getLengthAndNormalize() > 20) {
-            float speed = Math.min(motion.getLengthAndNormalize() * 100, MAX_PLAYER_SPEED);
+        if (motion.getLengthAndNormalize() > oldCircle.getRadius()/2) {
+            float speed = Math.min(new Vec2(playerPosition.subtract(mouse)).getLengthAndNormalize() * 100, MAX_PLAYER_SPEED);
             player.translateTowards(mouse, speed * tpf * 5);
         }
 
