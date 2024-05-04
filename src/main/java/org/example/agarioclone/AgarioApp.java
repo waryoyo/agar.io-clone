@@ -82,17 +82,27 @@ public class AgarioApp extends GameApplication {
             @Override
             protected void onCollision(Entity player, Entity food) {
 
-                food.removeFromWorld();
+                var playerView = player.getViewComponent().getChild(0, Circle.class);
+                var playerCenterPoint = player.getPosition().add(playerView.getRadius(), playerView.getRadius());
 
-                Circle oldCircle = player.getViewComponent().getChild(0, Circle.class);
-                int newRadius = (int) (oldCircle.getRadius() + 1);
+                var foodView = food.getViewComponent().getChild(0, Circle.class);
+                var foodCenterPoint = food.getPosition().add(foodView.getRadius(), foodView.getRadius());
 
-                player.getViewComponent().clearChildren();
-                player.getViewComponent().addChild(new Circle(newRadius, newRadius, newRadius, oldCircle.getFill()));
+                // just make sure the collision is correct
+                if(playerCenterPoint.distance(foodCenterPoint) < playerView.getRadius() + foodView.getRadius()){
+                    food.removeFromWorld();
 
-                player.getBoundingBoxComponent().clearHitBoxes();
-                player.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.circle(newRadius)));
+                    int newRadius = (int) (playerView.getRadius() + 1);
 
+                    // change attributes instead of making a new object
+                    playerView.setRadius(newRadius);
+                    playerView.setCenterX(newRadius);
+                    playerView.setCenterY(newRadius);
+
+
+                    player.getBoundingBoxComponent().clearHitBoxes();
+                    player.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.circle(newRadius)));
+                }
 
             }
         });
@@ -103,7 +113,7 @@ public class AgarioApp extends GameApplication {
                     .type(EntityType.FOOD)
                     .at(Utility.getRandomPosition())
                     .view(new Circle(10, 10,10, Utility.getRandomColor()))
-                    .bbox(new HitBox(BoundingShape.circle(10)))
+                    .bbox(BoundingShape.circle(10))
                     .collidable()
                     .buildAndAttach()
             );
@@ -121,7 +131,6 @@ public class AgarioApp extends GameApplication {
             float speed = Math.min(new Vec2(playerPosition.subtract(mouse)).getLengthAndNormalize() * 100, MAX_PLAYER_SPEED);
             player.translateTowards(mouse, speed * tpf * 5);
         }
-
 
         if (frameCount == 0) {
             spawnFood(5);
