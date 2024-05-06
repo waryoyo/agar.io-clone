@@ -15,6 +15,6 @@ public class Utility {
     }
 
     static Point2D getRandomPosition() {
-        return new Point2D(rng.nextInt(AgarioApp.WINDOW_WIDTH), rng.nextInt(AgarioApp.WINDOW_HEIGHT));
+        return new Point2D(rng.nextInt(AgarioApp.MAP_WIDTH), rng.nextInt(AgarioApp.MAP_HEIGHT));
     }
 }

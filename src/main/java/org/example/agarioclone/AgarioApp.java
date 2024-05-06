@@ -29,11 +29,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+
 public class AgarioApp extends GameApplication {
 
     Entity player;
     final static public int WINDOW_WIDTH = 2000;
     final static public int WINDOW_HEIGHT = 2000;
+    final static public int MAP_WIDTH = 5000;
+    final static public int MAP_HEIGHT = 5000;
     static public float MAX_PLAYER_SPEED = 50;
     Input input;
     ArrayList<Entity> food;
@@ -63,11 +67,12 @@ public class AgarioApp extends GameApplication {
     protected void initGame() {
         player = FXGL.entityBuilder()
                 .type(EntityType.PLAYER)
-                .at(300, 1000)
+                .at(Utility.getRandomPosition())
                 .viewWithBBox(new Circle(50,50,50, Utility.getRandomColor()))
                 .collidable()
                 .buildAndAttach();
         food = new ArrayList<>();
+        getGameScene().getViewport().bindToEntity(player, (int)(WINDOW_WIDTH / 2), (int)(WINDOW_HEIGHT / 2));
     }
 
     @Override
@@ -133,9 +138,9 @@ public class AgarioApp extends GameApplication {
         }
 
         if (frameCount == 0) {
-            spawnFood(5);
+            spawnFood(10);
         }
         frameCount++;
-        frameCount %= 60;
+        frameCount %= 40;
     }
 }
