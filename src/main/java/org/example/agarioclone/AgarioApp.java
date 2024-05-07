@@ -2,32 +2,14 @@ package org.example.agarioclone;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
-import  java.awt.*;
-
-import com.almasb.fxgl.core.View;
-import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
-import com.almasb.fxgl.entity.components.BoundingBoxComponent;
-import com.almasb.fxgl.entity.components.CollidableComponent;
-import com.almasb.fxgl.entity.components.ViewComponent;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.CollisionHandler;
-import com.almasb.fxgl.physics.HitBox;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.util.ArrayList;
+
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
@@ -69,8 +51,11 @@ public class AgarioApp extends GameApplication {
                 .type(EntityType.PLAYER)
                 .at(Utility.getRandomPosition())
                 .viewWithBBox(new Circle(50,50,50, Utility.getRandomColor()))
+                .with(new PlayerComponent(50))
+                .with(new GooglyEyesComponent())
                 .collidable()
                 .buildAndAttach();
+
         food = new ArrayList<>();
         getGameScene().getViewport().bindToEntity(player, (int)(WINDOW_WIDTH / 2), (int)(WINDOW_HEIGHT / 2));
     }
@@ -97,16 +82,9 @@ public class AgarioApp extends GameApplication {
                 if(playerCenterPoint.distance(foodCenterPoint) < playerView.getRadius() + foodView.getRadius()){
                     food.removeFromWorld();
 
-                    int newRadius = (int) (playerView.getRadius() + 1);
+                    player.getComponent(PlayerComponent.class).grow();
+                    player.getComponent(GooglyEyesComponent.class).grow();
 
-                    // change attributes instead of making a new object
-                    playerView.setRadius(newRadius);
-                    playerView.setCenterX(newRadius);
-                    playerView.setCenterY(newRadius);
-
-
-                    player.getBoundingBoxComponent().clearHitBoxes();
-                    player.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.circle(newRadius)));
                 }
 
             }
@@ -128,15 +106,6 @@ public class AgarioApp extends GameApplication {
     @Override
     protected void onUpdate(double tpf) {
         super.onUpdate(tpf);
-        Circle oldCircle = player.getViewComponent().getChild(0, Circle.class);
-        Point2D mouse = input.getMousePositionWorld().subtract(oldCircle.getRadius(), oldCircle.getRadius());
-        Point2D playerPosition = new Point2D(player.getX(), player.getY());
-        Vec2 motion = new Vec2(playerPosition.subtract(mouse));
-        if (motion.getLengthAndNormalize() > oldCircle.getRadius()/2) {
-            float speed = Math.min(new Vec2(playerPosition.subtract(mouse)).getLengthAndNormalize() * 100, MAX_PLAYER_SPEED);
-            player.translateTowards(mouse, speed * tpf * 5);
-        }
-
         if (frameCount == 0) {
             spawnFood(10);
         }
