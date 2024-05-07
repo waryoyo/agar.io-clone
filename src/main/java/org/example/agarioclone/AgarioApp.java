@@ -39,6 +39,8 @@ public class AgarioApp extends GameApplication {
     final static public int MAP_WIDTH = 5000;
     final static public int MAP_HEIGHT = 5000;
     static public float MAX_PLAYER_SPEED = 50;
+
+    static private int playerScore = 10;
     Input input;
     ArrayList<Entity> food;
     static int frameCount = 0;
@@ -65,14 +67,16 @@ public class AgarioApp extends GameApplication {
 
     @Override
     protected void initGame() {
+        int startRadius = 50;
         player = FXGL.entityBuilder()
                 .type(EntityType.PLAYER)
                 .at(Utility.getRandomPosition())
-                .viewWithBBox(new Circle(50,50,50, Utility.getRandomColor()))
+                .viewWithBBox(new Circle(startRadius,startRadius,startRadius, Utility.getRandomColor()))
                 .collidable()
                 .buildAndAttach();
         food = new ArrayList<>();
-        getGameScene().getViewport().bindToEntity(player, (int)(WINDOW_WIDTH / 2), (int)(WINDOW_HEIGHT / 2));
+        getGameScene().getViewport().bindToEntity(player, (int)(WINDOW_WIDTH / 2) - startRadius, (int)(WINDOW_HEIGHT / 2) - startRadius);
+        getGameScene().getViewport().setZoom(calculateZoom(startRadius));
     }
 
     @Override
@@ -81,11 +85,17 @@ public class AgarioApp extends GameApplication {
         input = FXGL.getInput();
 
     }
+
+    protected double calculateZoom(int radius) {
+        return 2 * Math.max(0.01, (15 - Math.log10(radius) / Math.log10(2)) / 15);
+    }
+
     @Override
     protected void initPhysics() {
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.PLAYER, EntityType.FOOD) {
             @Override
             protected void onCollision(Entity player, Entity food) {
+                playerScore++;
 
                 var playerView = player.getViewComponent().getChild(0, Circle.class);
                 var playerCenterPoint = player.getPosition().add(playerView.getRadius(), playerView.getRadius());
@@ -107,6 +117,10 @@ public class AgarioApp extends GameApplication {
 
                     player.getBoundingBoxComponent().clearHitBoxes();
                     player.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.circle(newRadius)));
+                    double zoom = calculateZoom(newRadius);
+                    getGameScene().getViewport().setZoom(zoom);
+                    getGameScene().getViewport().bindToEntity(player, (int)(WINDOW_WIDTH / (2 * zoom)) - newRadius, (int)(WINDOW_HEIGHT / (2 * zoom)) - newRadius);
+                    System.err.println(getGameScene().getViewport().getZoom());
                 }
 
             }
@@ -138,7 +152,7 @@ public class AgarioApp extends GameApplication {
         }
 
         if (frameCount == 0) {
-            spawnFood(10);
+            spawnFood(100);
         }
         frameCount++;
         frameCount %= 40;
