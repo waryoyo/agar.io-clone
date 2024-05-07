@@ -10,6 +10,10 @@ import com.almasb.fxgl.physics.HitBox;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Circle;
 
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static org.example.agarioclone.AgarioApp.WINDOW_HEIGHT;
+import static org.example.agarioclone.AgarioApp.WINDOW_WIDTH;
+
 public class PlayerComponent extends Component {
     public TransformComponent position;
     public Input input;
@@ -22,12 +26,13 @@ public class PlayerComponent extends Component {
 
     public void onAdded() {
         super.onAdded();
-        this.input = FXGL.getInput();
+        input = FXGL.getInput();
+        getGameScene().getViewport().bindToEntity(entity, (int)(WINDOW_WIDTH / 2), (int)(WINDOW_HEIGHT / 2));
     }
 
     public void onUpdate(double tpf) {
         Circle oldCircle = entity.getViewComponent().getChild(0, Circle.class);
-        Point2D mouse = this.input.getMousePositionWorld().subtract(oldCircle.getRadius(), oldCircle.getRadius());
+        Point2D mouse = input.getMousePositionWorld().subtract(oldCircle.getRadius(), oldCircle.getRadius());
         Point2D playerPosition = new Point2D(position.getX(), position.getY());
         Vec2 motion = new Vec2(playerPosition.subtract(mouse));
 

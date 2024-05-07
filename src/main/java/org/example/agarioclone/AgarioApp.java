@@ -47,17 +47,12 @@ public class AgarioApp extends GameApplication {
 
     @Override
     protected void initGame() {
-        player = FXGL.entityBuilder()
-                .type(EntityType.PLAYER)
-                .at(Utility.getRandomPosition())
-                .viewWithBBox(new Circle(50,50,50, Utility.getRandomColor()))
-                .with(new PlayerComponent(50))
-                .with(new GooglyEyesComponent())
-                .collidable()
-                .buildAndAttach();
+        FXGL.getGameWorld().addEntityFactory(new PlayerFactory());
+        FXGL.getGameWorld().addEntityFactory(new FoodFactory());
+
+        FXGL.getGameWorld().spawn("player");
 
         food = new ArrayList<>();
-        getGameScene().getViewport().bindToEntity(player, (int)(WINDOW_WIDTH / 2), (int)(WINDOW_HEIGHT / 2));
     }
 
     @Override
@@ -92,14 +87,7 @@ public class AgarioApp extends GameApplication {
     }
     void spawnFood(int n) {
         for (int i = 0; i < n; ++i) {
-            food.add(FXGL.entityBuilder()
-                    .type(EntityType.FOOD)
-                    .at(Utility.getRandomPosition())
-                    .view(new Circle(10, 10,10, Utility.getRandomColor()))
-                    .bbox(BoundingShape.circle(10))
-                    .collidable()
-                    .buildAndAttach()
-            );
+            FXGL.getGameWorld().spawn("food");
         }
     }
 
