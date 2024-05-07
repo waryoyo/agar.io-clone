@@ -8,6 +8,8 @@ import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 
 
@@ -20,11 +22,8 @@ public class AgarioApp extends GameApplication {
     final static public int WINDOW_HEIGHT = 2000;
     final static public int MAP_WIDTH = 5000;
     final static public int MAP_HEIGHT = 5000;
-    static public float MAX_PLAYER_SPEED = 50;
     Input input;
     ArrayList<Entity> food;
-    static int frameCount = 0;
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -53,13 +52,15 @@ public class AgarioApp extends GameApplication {
         FXGL.getGameWorld().spawn("player");
 
         food = new ArrayList<>();
+        FXGL.getGameTimer().runAtInterval(() -> {
+            spawnFood(10);
+        }, Duration.seconds(1));
+
     }
 
     @Override
     protected void initInput() {
-        super.initInput();
         input = FXGL.getInput();
-
     }
     @Override
     protected void initPhysics() {
@@ -91,13 +92,4 @@ public class AgarioApp extends GameApplication {
         }
     }
 
-    @Override
-    protected void onUpdate(double tpf) {
-        super.onUpdate(tpf);
-        if (frameCount == 0) {
-            spawnFood(10);
-        }
-        frameCount++;
-        frameCount %= 40;
-    }
 }
