@@ -5,23 +5,26 @@ import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.Input;
-import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.example.agarioclone.components.GooglyEyesComponent;
+import org.example.agarioclone.components.PlayerComponent;
+import org.example.agarioclone.factories.FoodFactory;
+import org.example.agarioclone.factories.PlayerFactory;
 
 import java.util.ArrayList;
-
-
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import java.util.Map;
 
 public class AgarioApp extends GameApplication {
 
     Entity player;
-    final static public int WINDOW_WIDTH = 2000;
-    final static public int WINDOW_HEIGHT = 2000;
-    final static public int MAP_WIDTH = 5000;
-    final static public int MAP_HEIGHT = 5000;
+    public static final int WINDOW_WIDTH = 2000;
+    public static final int WINDOW_HEIGHT = 2000;
+    public static final int MAP_WIDTH = 2500;
+    public static final int MAP_HEIGHT = 2500;
     Input input;
     ArrayList<Entity> food;
     public static void main(String[] args) {
@@ -42,6 +45,11 @@ public class AgarioApp extends GameApplication {
         gameSettings.setWidth(WINDOW_WIDTH);
         gameSettings.setHeight(WINDOW_HEIGHT);
 
+    }
+
+    @Override
+    protected void initGameVars(Map<String, Object> vars) {
+        vars.put("speed", 0.0);
     }
 
     @Override
@@ -86,6 +94,19 @@ public class AgarioApp extends GameApplication {
             }
         });
     }
+
+    @Override
+    protected void initUI() {
+        Text textPixels = new Text();
+        textPixels.setTranslateX(50);
+        textPixels.setTranslateY(100);
+        textPixels.setFont(new Font(26));
+
+        FXGL.getGameScene().addUINode(textPixels);
+        textPixels.textProperty().bind(FXGL.getWorldProperties().doubleProperty("speed").asString());
+
+    }
+
     void spawnFood(int n) {
         for (int i = 0; i < n; ++i) {
             FXGL.getGameWorld().spawn("food");

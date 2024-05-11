@@ -1,4 +1,4 @@
-package org.example.agarioclone;
+package org.example.agarioclone.factories;
 
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
@@ -7,6 +7,9 @@ import com.almasb.fxgl.entity.SpawnData;
 import com.almasb.fxgl.entity.Spawns;
 import com.almasb.fxgl.physics.BoundingShape;
 import javafx.scene.shape.Circle;
+import org.example.agarioclone.EntityType;
+import org.example.agarioclone.Utility;
+import org.example.agarioclone.components.GooglyEyesComponent;
 
 public class FoodFactory implements EntityFactory {
     @Spawns("food")

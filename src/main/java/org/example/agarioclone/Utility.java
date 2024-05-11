@@ -4,9 +4,11 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 import javafx.geometry.Point2D;
 
-public class Utility {
-    static final Random rng = new Random();
-    static Color getRandomColor() {
+public final class Utility {
+
+    private Utility(){};
+    public static final Random rng = new Random();
+    public static Color getRandomColor() {
         int randNumber = Math.abs(rng.nextInt());;
         int r = randNumber % 256;
         int g = (randNumber >> 8) % 256;
@@ -14,7 +16,7 @@ public class Utility {
         return Color.rgb(r, g, b);
     }
 
-    static Point2D getRandomPosition() {
+    public static Point2D getRandomPosition() {
         return new Point2D(rng.nextInt(AgarioApp.MAP_WIDTH), rng.nextInt(AgarioApp.MAP_HEIGHT));
     }
 }

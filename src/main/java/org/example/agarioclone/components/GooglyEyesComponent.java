@@ -1,5 +1,5 @@
 
-package org.example.agarioclone;
+package org.example.agarioclone.components;
 
 import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.dsl.FXGL;
@@ -11,6 +11,8 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
 public class GooglyEyesComponent extends Component {
     public TransformComponent position;
@@ -43,7 +45,10 @@ public class GooglyEyesComponent extends Component {
     public void onUpdate(double tpf) {
         super.onUpdate(tpf);
         Circle mainView = entity.getViewComponent().getChild(0, Circle.class);
-        Point2D mouse = this.input.getMousePositionWorld().subtract(mainView.getRadius(), mainView.getRadius());
+        Point2D mouse = input.getMousePositionUI()
+                .subtract(mainView.getRadius(), mainView.getRadius())
+                .add(getGameScene().getViewport().getX(),getGameScene().getViewport().getY());
+
         Point2D playerPosition = new Point2D(this.entity.getX(), this.entity.getY());
         Vec2 direction = new Vec2(mouse.subtract(playerPosition));
         Vec2 normalizeDirection = direction.normalize();
