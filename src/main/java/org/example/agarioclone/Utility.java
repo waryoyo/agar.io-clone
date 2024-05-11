@@ -5,6 +5,7 @@ import java.util.Random;
 import javafx.geometry.Point2D;
 
 public final class Utility {
+    static double minZoom = 0.05, maxZoom = 1.0;
 
     private Utility(){};
     public static final Random rng = new Random();
@@ -18,5 +19,13 @@ public final class Utility {
 
     public static Point2D getRandomPosition() {
         return new Point2D(rng.nextInt(AgarioApp.MAP_WIDTH), rng.nextInt(AgarioApp.MAP_HEIGHT));
+    }
+    public static double calculateZoom(double radius) {
+        double logMinZoom = Math.log(minZoom);
+        double logMaxZoom = Math.log(maxZoom);
+
+        double logZoom = logMaxZoom - (logMaxZoom-logMinZoom)*radius / (2000-1);
+//        return (32 - Math.log(radius) / Math.log(2)) / 32;
+        return Math.exp(logZoom);
     }
 }

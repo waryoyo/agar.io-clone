@@ -10,6 +10,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.example.agarioclone.components.CameraComponent;
 import org.example.agarioclone.components.GooglyEyesComponent;
 import org.example.agarioclone.components.PlayerComponent;
 import org.example.agarioclone.factories.FoodFactory;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static org.example.agarioclone.Utility.calculateZoom;
 
 public class AgarioApp extends GameApplication {
 
@@ -28,6 +30,7 @@ public class AgarioApp extends GameApplication {
     public static int WINDOW_HEIGHT = 2000;
     public static final int MAP_WIDTH = 2500;
     public static final int MAP_HEIGHT = 2500;
+    Text textPixels, textPixels2;
     Input input;
     ArrayList<Entity> food;
     public static void main(String[] args) {
@@ -38,12 +41,12 @@ public class AgarioApp extends GameApplication {
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setFullScreenAllowed(true);
         gameSettings.setDeveloperMenuEnabled(true);
-         gameSettings.setFullScreenFromStart(true);
+        gameSettings.setFullScreenFromStart(true);
 
         // TODO: make it full screen dynamically
          Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-         WINDOW_WIDTH = (int)screenSize.getWidth();
-         WINDOW_HEIGHT = (int)screenSize.getHeight();
+        WINDOW_WIDTH = (int)screenSize.getWidth();
+        WINDOW_HEIGHT = (int)screenSize.getHeight();
 
         gameSettings.setWidth(WINDOW_WIDTH);
         gameSettings.setHeight(WINDOW_HEIGHT);
@@ -75,9 +78,7 @@ public class AgarioApp extends GameApplication {
         input = FXGL.getInput();
     }
 
-    double calculateZoom(double radius) {
-        return (32 - Math.log(radius) / Math.log(2)) / 32;
-    }
+
 
     @Override
     protected void initPhysics() {
@@ -99,9 +100,9 @@ public class AgarioApp extends GameApplication {
                     player.getComponent(PlayerComponent.class).grow();
                     player.getComponent(GooglyEyesComponent.class).grow();
 
-                    double zoom = calculateZoom(playerView.getRadius());
-                    FXGL.set("zoom", calculateZoom(zoom));
-                    getGameScene().getViewport().setZoom(zoom);
+                    FXGL.set("zoom", calculateZoom(playerView.getRadius()));
+                    textPixels2.textProperty().set(String.valueOf(playerView.getRadius()));
+                    player.getComponent(CameraComponent.class).updateCamera(player, true);
                 }
             }
         });
@@ -109,13 +110,20 @@ public class AgarioApp extends GameApplication {
 
     @Override
     protected void initUI() {
-        Text textPixels = new Text();
+        textPixels = new Text();
         textPixels.setTranslateX(50);
         textPixels.setTranslateY(100);
         textPixels.setFont(new Font(26));
 
+        textPixels2 = new Text();
+        textPixels2.setTranslateX(50);
+        textPixels2.setTranslateY(200);
+        textPixels2.setFont(new Font(26));
+
         FXGL.getGameScene().addUINode(textPixels);
-        textPixels.textProperty().bind(FXGL.getWorldProperties().doubleProperty("speed").asString());
+        FXGL.getGameScene().addUINode(textPixels2);
+
+        textPixels.textProperty().bind(FXGL.getWorldProperties().doubleProperty("zoom").asString());
 
     }
 

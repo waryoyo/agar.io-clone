@@ -35,6 +35,7 @@ public class PlayerComponent extends Component {
     }
 
     public void onUpdate(double tpf) {
+
         Circle oldCircle = entity.getViewComponent().getChild(0, Circle.class);
         Point2D mouse = input.getMousePositionUI()
                 .subtract(oldCircle.getRadius(), oldCircle.getRadius())
@@ -52,7 +53,7 @@ public class PlayerComponent extends Component {
 
     public void grow() {
         Circle playerView = entity.getViewComponent().getChild(0, Circle.class);
-        double newRadius = playerView.getRadius() + 1.0;
+        double newRadius = playerView.getRadius() + 0.4;
 
         playerView.setRadius(newRadius);
         playerView.setCenterX(newRadius);

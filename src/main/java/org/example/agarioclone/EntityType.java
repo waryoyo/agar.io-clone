@@ -1,5 +1,5 @@
 package org.example.agarioclone;
 
 public enum EntityType {
-    PLAYER, FOOD
+    PLAYER, FOOD, BARRIER
 }

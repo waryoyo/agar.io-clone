@@ -71,11 +71,11 @@ public class GooglyEyesComponent extends Component {
 
         this.rightEye.setRadius(eyeRadius);
         this.rightEye.setCenterX(centerX + radius * 0.4);
-        this.rightEye.setCenterY(this.rightEye.getCenterY() + 1.0);
+        this.rightEye.setCenterY(this.rightEye.getCenterY() + 0.4);
 
         this.leftEye.setRadius(eyeRadius);
         this.leftEye.setCenterX(centerX - radius * 0.4);
-        this.leftEye.setCenterY(this.leftEye.getCenterY() + 1.0);
+        this.leftEye.setCenterY(this.leftEye.getCenterY() + 0.4);
 
         this.leftInnerEye.setRadius(eyeInnerRadius);
         this.rightInnerEye.setRadius(eyeInnerRadius);
