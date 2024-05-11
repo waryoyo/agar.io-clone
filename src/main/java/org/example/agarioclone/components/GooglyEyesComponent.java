@@ -36,6 +36,7 @@ public class GooglyEyesComponent extends Component {
         this.leftInnerEye = new Circle(size - size * 0.4, size * 0.7, size * 0.1, Color.BLACK);
         this.rightInnerEye = new Circle(size + size * 0.4, size * 0.7, size * 0.1, Color.BLACK);
 
+        // Add eyes
         this.entity.getViewComponent().addChild(this.leftEye);
         this.entity.getViewComponent().addChild(this.leftInnerEye);
         this.entity.getViewComponent().addChild(this.rightEye);
@@ -53,6 +54,7 @@ public class GooglyEyesComponent extends Component {
         Vec2 direction = new Vec2(mouse.subtract(playerPosition));
         Vec2 normalizeDirection = direction.normalize();
 
+        // Set direction
         this.leftInnerEye.setCenterX(this.leftEye.getCenterX() + normalizeDirection.x * (leftEye.getRadius() - leftInnerEye.getRadius()));
         this.leftInnerEye.setCenterY(this.leftEye.getCenterY() + normalizeDirection.y * (leftEye.getRadius() - leftInnerEye.getRadius()));
         this.rightInnerEye.setCenterX(this.rightEye.getCenterX() + normalizeDirection.x * (rightEye.getRadius() - rightInnerEye.getRadius()));

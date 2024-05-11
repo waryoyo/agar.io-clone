@@ -15,14 +15,17 @@ import org.example.agarioclone.components.PlayerComponent;
 import org.example.agarioclone.factories.FoodFactory;
 import org.example.agarioclone.factories.PlayerFactory;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Map;
+
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
 public class AgarioApp extends GameApplication {
 
     Entity player;
-    public static final int WINDOW_WIDTH = 2000;
-    public static final int WINDOW_HEIGHT = 2000;
+    public static int WINDOW_WIDTH = 2000;
+    public static int WINDOW_HEIGHT = 2000;
     public static final int MAP_WIDTH = 2500;
     public static final int MAP_HEIGHT = 2500;
     Input input;
@@ -35,12 +38,12 @@ public class AgarioApp extends GameApplication {
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setFullScreenAllowed(true);
         gameSettings.setDeveloperMenuEnabled(true);
-        // gameSettings.setFullScreenFromStart(true);
+         gameSettings.setFullScreenFromStart(true);
 
         // TODO: make it full screen dynamically
-        // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        // int width = (int)screenSize.getWidth();
-        // int height = (int)screenSize.getHeight();
+         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+         WINDOW_WIDTH = (int)screenSize.getWidth();
+         WINDOW_HEIGHT = (int)screenSize.getHeight();
 
         gameSettings.setWidth(WINDOW_WIDTH);
         gameSettings.setHeight(WINDOW_HEIGHT);
@@ -50,6 +53,7 @@ public class AgarioApp extends GameApplication {
     @Override
     protected void initGameVars(Map<String, Object> vars) {
         vars.put("speed", 0.0);
+        vars.put("zoom", 1.0);
     }
 
     @Override
@@ -70,11 +74,17 @@ public class AgarioApp extends GameApplication {
     protected void initInput() {
         input = FXGL.getInput();
     }
+
+    double calculateZoom(double radius) {
+        return (32 - Math.log(radius) / Math.log(2)) / 32;
+    }
+
     @Override
     protected void initPhysics() {
         FXGL.getPhysicsWorld().addCollisionHandler(new CollisionHandler(EntityType.PLAYER, EntityType.FOOD) {
             @Override
             protected void onCollision(Entity player, Entity food) {
+
 
                 var playerView = player.getViewComponent().getChild(0, Circle.class);
                 var playerCenterPoint = player.getPosition().add(playerView.getRadius(), playerView.getRadius());
@@ -89,8 +99,10 @@ public class AgarioApp extends GameApplication {
                     player.getComponent(PlayerComponent.class).grow();
                     player.getComponent(GooglyEyesComponent.class).grow();
 
+                    double zoom = calculateZoom(playerView.getRadius());
+                    FXGL.set("zoom", calculateZoom(zoom));
+                    getGameScene().getViewport().setZoom(zoom);
                 }
-
             }
         });
     }
