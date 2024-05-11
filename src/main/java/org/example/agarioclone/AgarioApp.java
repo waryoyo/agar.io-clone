@@ -28,8 +28,8 @@ public class AgarioApp extends GameApplication {
 
     public static int WINDOW_WIDTH = 2000;
     public static int WINDOW_HEIGHT = 2000;
-    public static final int MAP_WIDTH = 10000;
-    public static final int MAP_HEIGHT = 10000;
+    public static final int MAP_WIDTH = 5000;
+    public static final int MAP_HEIGHT = 5000;
     public static Entity topBorder, bottomBorder, leftBorder, rightBorder;
     Text textPixels, textPixels2;
     Input input;

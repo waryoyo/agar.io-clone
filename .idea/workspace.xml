@@ -7,6 +7,7 @@
     <list default="true" id="9252a3ee-b152-4845-9c46-b13fb94cb589" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/PlayerComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/PlayerComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Cannon/src/main/java/com/almasb/fxglgames/cannon/CannonApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Cannon/src/main/java/com/almasb/fxglgames/cannon/CannonApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

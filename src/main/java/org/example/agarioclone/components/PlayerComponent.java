@@ -13,9 +13,11 @@ import com.almasb.fxgl.physics.HitBox;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import org.example.agarioclone.AgarioApp;
 
 import static com.almasb.fxgl.core.math.FXGLMath.random;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.play;
 import static org.example.agarioclone.AgarioApp.*;
 
 public class PlayerComponent extends Component {
@@ -44,10 +46,16 @@ public class PlayerComponent extends Component {
         Point2D playerPosition = new Point2D(position.getX(), position.getY());
         Vec2 motion = new Vec2(playerPosition.subtract(mouse));
 
+
         if (motion.getLengthAndNormalize() > oldCircle.getRadius() / 2.0) {
+            double zoom = FXGL.getWorldProperties().getDouble("zoom");
             double speed = Math.max((new Vec2(playerPosition.subtract(mouse))).getLengthAndNormalize(), MAX_PLAYER_SPEED);
-            FXGL.set("speed", speed * tpf * 1.2);
-            position.translateTowards(mouse, speed * tpf * 1.2);
+            FXGL.set("speed", speed * tpf * zoom);
+            position.translateTowards(mouse, speed * tpf * zoom);
+            if (position.getX() < 0) position.setX(0);
+            if (position.getX() + 2 * oldCircle.getRadius() > AgarioApp.MAP_WIDTH) position.setX(AgarioApp.MAP_WIDTH - 2 * oldCircle.getRadius());
+            if (position.getY() < 0) position.setY(0);
+            if (position.getY() + 2 * oldCircle.getRadius() > AgarioApp.MAP_HEIGHT) position.setY(AgarioApp.MAP_HEIGHT - 2 * oldCircle.getRadius());
         }
     }
 
