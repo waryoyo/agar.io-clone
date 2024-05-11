@@ -7,8 +7,6 @@
     <list default="true" id="9252a3ee-b152-4845-9c46-b13fb94cb589" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/CameraComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/CameraComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/GooglyEyesComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/GooglyEyesComponent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Cannon/src/main/java/com/almasb/fxglgames/cannon/CannonApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Cannon/src/main/java/com/almasb/fxglgames/cannon/CannonApp.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,17 +41,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.AgarioApp.executor": "Run",
-    "Application.RunGame.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "style",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AgarioApp.executor&quot;: &quot;Run&quot;,
+    &quot;Application.RunGame.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;style&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="RunGame" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="org.example.agarioclone.AgarioApp" />

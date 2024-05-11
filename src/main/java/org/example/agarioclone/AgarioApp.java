@@ -7,6 +7,7 @@ import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
@@ -25,11 +26,11 @@ import static org.example.agarioclone.Utility.calculateZoom;
 
 public class AgarioApp extends GameApplication {
 
-    Entity player;
     public static int WINDOW_WIDTH = 2000;
     public static int WINDOW_HEIGHT = 2000;
-    public static final int MAP_WIDTH = 2500;
-    public static final int MAP_HEIGHT = 2500;
+    public static final int MAP_WIDTH = 10000;
+    public static final int MAP_HEIGHT = 10000;
+    public static Entity topBorder, bottomBorder, leftBorder, rightBorder;
     Text textPixels, textPixels2;
     Input input;
     ArrayList<Entity> food;
@@ -61,6 +62,26 @@ public class AgarioApp extends GameApplication {
 
     @Override
     protected void initGame() {
+        topBorder = FXGL.entityBuilder()
+                .type(EntityType.BARRIER)
+                .viewWithBBox(new Line(0, 0, MAP_WIDTH, 0))
+                .collidable()
+                .buildAndAttach();
+        bottomBorder = FXGL.entityBuilder()
+                .type(EntityType.BARRIER)
+                .viewWithBBox(new Line(0, MAP_HEIGHT, MAP_WIDTH, MAP_HEIGHT))
+                .collidable()
+                .buildAndAttach();
+        leftBorder = FXGL.entityBuilder()
+                .type(EntityType.BARRIER)
+                .viewWithBBox(new Line(0, 0, 0, MAP_HEIGHT))
+                .collidable()
+                .buildAndAttach();
+        rightBorder = FXGL.entityBuilder()
+                .type(EntityType.BARRIER)
+                .viewWithBBox(new Line(MAP_WIDTH, 0, MAP_WIDTH, MAP_HEIGHT))
+                .collidable()
+                .buildAndAttach();
         FXGL.getGameWorld().addEntityFactory(new PlayerFactory());
         FXGL.getGameWorld().addEntityFactory(new FoodFactory());
 
@@ -68,7 +89,7 @@ public class AgarioApp extends GameApplication {
 
         food = new ArrayList<>();
         FXGL.getGameTimer().runAtInterval(() -> {
-            spawnFood(10);
+            spawnFood(40);
         }, Duration.seconds(1));
 
     }
