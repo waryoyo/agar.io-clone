@@ -1,10 +1,12 @@
 package org.example.agarioclone;
 
+import com.almasb.fxgl.app.ApplicationMode;
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.app.GameSettings;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.Input;
+import com.almasb.fxgl.physics.CollisionDetectionStrategy;
 import com.almasb.fxgl.physics.CollisionHandler;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -43,9 +45,11 @@ public class AgarioApp extends GameApplication {
         gameSettings.setFullScreenAllowed(true);
         gameSettings.setDeveloperMenuEnabled(true);
         gameSettings.setFullScreenFromStart(true);
+        gameSettings.setCollisionDetectionStrategy(CollisionDetectionStrategy.GRID_INDEXING);
+
 
         // TODO: make it full screen dynamically
-         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         WINDOW_WIDTH = (int)screenSize.getWidth();
         WINDOW_HEIGHT = (int)screenSize.getHeight();
 
@@ -89,7 +93,7 @@ public class AgarioApp extends GameApplication {
 
         food = new ArrayList<>();
         FXGL.getGameTimer().runAtInterval(() -> {
-            spawnFood(40);
+            spawnFood(12);
         }, Duration.seconds(1));
 
     }
@@ -144,7 +148,8 @@ public class AgarioApp extends GameApplication {
         FXGL.getGameScene().addUINode(textPixels);
         FXGL.getGameScene().addUINode(textPixels2);
 
-        textPixels.textProperty().bind(FXGL.getWorldProperties().doubleProperty("zoom").asString());
+//        textPixels.textProperty().bind(FXGL.getWorldProperties().doubleProperty("zoom").asString());
+
 
     }
 
@@ -154,4 +159,8 @@ public class AgarioApp extends GameApplication {
         }
     }
 
+    @Override
+    protected void onUpdate(double tpf) {
+        textPixels.textProperty().set(1 / tpf + "\n" + FXGL.getGameWorld().getEntitiesByType(EntityType.FOOD).size());
+    }
 }
