@@ -61,7 +61,7 @@ public class AgarioApp extends GameApplication {
     @Override
     protected void initGameVars(Map<String, Object> vars) {
         vars.put("speed", 0.0);
-        vars.put("zoom", 1.0);
+        vars.put("zoom", Utility.calculateZoom(50));
     }
 
     @Override

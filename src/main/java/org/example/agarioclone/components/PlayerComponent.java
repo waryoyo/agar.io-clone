@@ -11,6 +11,10 @@ import com.almasb.fxgl.particle.ParticleEmitters;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
 import javafx.geometry.Point2D;
+import com.almasb.fxgl.particle.ParticleComponent;
+import com.almasb.fxgl.particle.ParticleEmitter;
+import com.almasb.fxgl.particle.ParticleEmitters;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.example.agarioclone.AgarioApp;
@@ -25,7 +29,6 @@ public class PlayerComponent extends Component {
     public Input input;
     public final int MAX_PLAYER_SPEED;
     public int size = 0;
-    public ParticleEmitter emitter;
     public PlayerComponent(int maxPlayerSpeed) {
         this.MAX_PLAYER_SPEED = maxPlayerSpeed;
     }
@@ -33,7 +36,6 @@ public class PlayerComponent extends Component {
     public void onAdded() {
         super.onAdded();
         input = FXGL.getInput();
-
     }
 
     public void onUpdate(double tpf) {

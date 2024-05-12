@@ -26,19 +26,26 @@ import static com.almasb.fxgl.core.math.FXGLMath.random;
 public class PlayerFactory implements EntityFactory {
     @Spawns("player")
     public Entity newPlayer(SpawnData data) {
-        var emitter = ParticleEmitters.newExplosionEmitter(300);
+        /*
+        var emitter = ParticleEmitters.newImplosionEmitter();
         emitter.setColor(Color.RED);
         emitter.setEmissionRate(0.5);
-
-        return FXGL.entityBuilder(data)
+        emitter.setSpawnPointFunction((i) -> new Point2D(0, 0));
+         */
+        Entity player = FXGL.entityBuilder(data)
                 .type(EntityType.PLAYER)
                 .at(Utility.getRandomPosition())
                 .viewWithBBox(new Circle(50,50,50, Utility.getRandomColor()))
                 .with(new PlayerComponent(100))
                 .with(new GooglyEyesComponent())
                 .with(new CameraComponent())
-                .with(new ParticleComponent(emitter))
+                //.with(new ParticleComponent(emitter))
                 .collidable()
                 .build();
+
+
+
+        player.getComponent(CameraComponent.class).updateCamera(player, true);
+        return player;
     }
 }
