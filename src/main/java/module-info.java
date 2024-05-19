@@ -9,4 +9,8 @@ module org.example.agarioclone {
 
     opens org.example.agarioclone to javafx.fxml;
     exports org.example.agarioclone;
+    exports org.example.agarioclone.components;
+    opens org.example.agarioclone.components to javafx.fxml;
+    exports org.example.agarioclone.factories;
+    opens org.example.agarioclone.factories to javafx.fxml;
 }
