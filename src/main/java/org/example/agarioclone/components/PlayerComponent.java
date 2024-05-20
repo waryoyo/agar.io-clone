@@ -18,7 +18,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.example.agarioclone.AgarioApp;
+import org.example.agarioclone.Utility;
 
+import java.awt.color.ICC_ColorSpace;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Random;
+
+import static com.almasb.fxgl.core.math.FXGLMath.max;
 import static com.almasb.fxgl.core.math.FXGLMath.random;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import static com.almasb.fxgl.dsl.FXGLForKtKt.play;
@@ -29,8 +36,30 @@ public class PlayerComponent extends Component {
     public Input input;
     public final int MAX_PLAYER_SPEED;
     public int size = 0;
+    String id;
+    Color color;
     public PlayerComponent(int maxPlayerSpeed) {
         this.MAX_PLAYER_SPEED = maxPlayerSpeed;
+        this.id = Utility.getRandomId();
+        this.color = Utility.getRandomColor();
+    }
+    public PlayerComponent(int maxPlayerSpeed, Color color) {
+        this.MAX_PLAYER_SPEED = maxPlayerSpeed;
+        this.id = Utility.getRandomId();
+        this.color = color;
+    }
+    public PlayerComponent(int maxPlayerSpeed, String id, Color color) {
+        this.MAX_PLAYER_SPEED = maxPlayerSpeed;
+        this.color = color;
+        this.id = id;
+    }
+
+    public Color getColor() {
+        return this.color;
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     public void onAdded() {
@@ -64,6 +93,29 @@ public class PlayerComponent extends Component {
     public void grow() {
         Circle playerView = entity.getViewComponent().getChild(0, Circle.class);
         double newRadius = playerView.getRadius() + 0.4;
+
+        playerView.setRadius(newRadius);
+        playerView.setCenterX(newRadius);
+        playerView.setCenterY(newRadius);
+
+        entity.getBoundingBoxComponent().clearHitBoxes();
+        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.circle(newRadius)));
+    }
+
+    public void grow(double delta) {
+        Circle playerView = entity.getViewComponent().getChild(0, Circle.class);
+        double newRadius = playerView.getRadius() + delta;
+
+        playerView.setRadius(newRadius);
+        playerView.setCenterX(newRadius);
+        playerView.setCenterY(newRadius);
+
+        entity.getBoundingBoxComponent().clearHitBoxes();
+        entity.getBoundingBoxComponent().addHitBox(new HitBox(BoundingShape.circle(newRadius)));
+    }
+
+    public void setRadius(double newRadius) {
+        Circle playerView = entity.getViewComponent().getChild(0, Circle.class);
 
         playerView.setRadius(newRadius);
         playerView.setCenterX(newRadius);

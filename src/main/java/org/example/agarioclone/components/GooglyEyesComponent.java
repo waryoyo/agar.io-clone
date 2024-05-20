@@ -80,4 +80,6 @@ public class GooglyEyesComponent extends Component {
         this.leftInnerEye.setRadius(eyeInnerRadius);
         this.rightInnerEye.setRadius(eyeInnerRadius);
     }
+
+
 }

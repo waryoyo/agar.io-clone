@@ -1,6 +1,7 @@
 package org.example.agarioclone;
 import javafx.scene.paint.Color;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import javafx.geometry.Point2D;
 
@@ -16,7 +17,11 @@ public final class Utility {
         int b = (randNumber >> 16) % 256;
         return Color.rgb(r, g, b);
     }
-
+    public static String getRandomId() {
+        byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+        return new String(array, StandardCharsets.UTF_8);
+    }
     public static Point2D getRandomPosition() {
         return new Point2D(rng.nextInt(AgarioApp.MAP_WIDTH), rng.nextInt(AgarioApp.MAP_HEIGHT));
     }
