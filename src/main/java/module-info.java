@@ -15,8 +15,10 @@ module org.example.agarioclone {
     opens org.example.agarioclone.components to javafx.fxml;
     exports org.example.agarioclone.factories;
     opens org.example.agarioclone.factories to javafx.fxml;
-    exports ServerPackets;
-    opens ServerPackets to javafx.fxml;
-    exports org.example.agarioclone.Entities;
-    opens org.example.agarioclone.Entities to javafx.fxml;
+    exports org.example.agarioclone.ServerPackets.AgarioPackets;
+    opens org.example.agarioclone.ServerPackets.AgarioPackets to javafx.fxml;
+    exports org.example.agarioclone.ServerPackets.AgarioEvents;
+    opens org.example.agarioclone.ServerPackets.AgarioEvents to javafx.fxml;
+    exports org.example.agarioclone.ServerPackets.AgarioRequests;
+    opens org.example.agarioclone.ServerPackets.AgarioRequests to javafx.fxml;
 }

@@ -1,4 +1,4 @@
-package org.example.agarioclone.Entities;
+package org.example.agarioclone.ServerPackets.AgarioPackets;
 
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;

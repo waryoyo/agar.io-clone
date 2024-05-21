@@ -1,35 +1,21 @@
 package org.example.agarioclone.components;
 
-import com.almasb.fxgl.core.math.FXGLMath;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.TransformComponent;
 import com.almasb.fxgl.input.Input;
-import com.almasb.fxgl.particle.ParticleEmitter;
-import com.almasb.fxgl.particle.ParticleEmitters;
 import com.almasb.fxgl.physics.BoundingShape;
 import com.almasb.fxgl.physics.HitBox;
+
 import javafx.geometry.Point2D;
-import com.almasb.fxgl.particle.ParticleComponent;
-import com.almasb.fxgl.particle.ParticleEmitter;
-import com.almasb.fxgl.particle.ParticleEmitters;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.util.Duration;
+
 import org.example.agarioclone.AgarioApp;
 import org.example.agarioclone.Utility;
 
-import java.awt.color.ICC_ColorSpace;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Random;
-
-import static com.almasb.fxgl.core.math.FXGLMath.max;
-import static com.almasb.fxgl.core.math.FXGLMath.random;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
-import static com.almasb.fxgl.dsl.FXGLForKtKt.play;
-import static org.example.agarioclone.AgarioApp.*;
 
 public class PlayerComponent extends Component {
     public TransformComponent position;

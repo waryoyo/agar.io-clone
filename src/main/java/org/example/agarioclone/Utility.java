@@ -1,9 +1,9 @@
 package org.example.agarioclone;
-import javafx.scene.paint.Color;
 
+import javafx.scene.paint.Color;
+import javafx.geometry.Point2D;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
-import javafx.geometry.Point2D;
 
 public final class Utility {
     static double minZoom = 0.05, maxZoom = 1.0;
@@ -30,7 +30,6 @@ public final class Utility {
         double logMaxZoom = Math.log(maxZoom);
 
         double logZoom = logMaxZoom - (logMaxZoom-logMinZoom)*radius / (2000-1);
-//        return (32 - Math.log(radius) / Math.log(2)) / 32;
         return Math.exp(logZoom);
     }
 }

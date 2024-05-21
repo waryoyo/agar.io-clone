@@ -22,8 +22,6 @@ public class FoodFactory implements EntityFactory {
                 .bbox(BoundingShape.circle(10))
                 .collidable()
                 .build();
-
-//        food.removeComponent(CollidableComponent.class);
         return food;
 
     }

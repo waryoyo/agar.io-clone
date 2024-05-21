@@ -1,4 +1,3 @@
-
 package org.example.agarioclone.components;
 
 import com.almasb.fxgl.core.math.Vec2;
@@ -6,13 +5,12 @@ import com.almasb.fxgl.dsl.FXGL;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.entity.components.TransformComponent;
 import com.almasb.fxgl.input.Input;
-import java.util.List;
+import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
+
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-import static com.almasb.fxgl.dsl.FXGLForKtKt.getGameScene;
 
 public class GooglyEyesComponent extends Component {
     public TransformComponent position;
@@ -23,8 +21,7 @@ public class GooglyEyesComponent extends Component {
     public Circle rightInnerEye;
     public int size = 0;
 
-    public GooglyEyesComponent() {
-    }
+    public GooglyEyesComponent() {}
 
     public void onAdded() {
         super.onAdded();

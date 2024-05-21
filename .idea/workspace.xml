@@ -4,7 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9252a3ee-b152-4845-9c46-b13fb94cb589" name="Changes" comment="Add networking and players collision" />
+    <list default="true" id="9252a3ee-b152-4845-9c46-b13fb94cb589" name="Changes" comment="Add networking and players collision">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/ServerPackets/AgarioEvents/DeadPlayerEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/ServerPackets/AgarioEvents/EatenFoodEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/ServerPackets/AgarioPackets/PlayerStatusPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerPackets/FoodEaten.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerPackets/FoodPatch.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerPackets/FoodRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/ServerPackets/AgarioRequests/FoodRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerPackets/PlayerDead.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ServerPackets/PlayerStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/AgarioApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/Entities/FoodPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/ServerPackets/AgarioPackets/FoodPacket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/Entities/PlayerEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/CameraComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/CameraComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/GooglyEyesComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/GooglyEyesComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/IDCustomComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/IDCustomComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/PlayerComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/components/PlayerComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/factories/FoodFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/factories/FoodFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/factories/PlayerFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/agarioclone/factories/PlayerFactory.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
